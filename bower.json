@@ -1,0 +1,36 @@
+{
+  "name": "color-picker",
+  "description": "Color picker web component",
+  "main": "index.js",
+  "authors": [
+    "anm9tr@gmail.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "web",
+    "component",
+    "custom",
+    "element",
+    "ui",
+    "color",
+    "picker"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+	"dependencies": {
+		"on": "clubajax/on#^1.7.8",
+		"dom": "clubajax/dom#master",
+		"BaseComponent":"clubajax/BaseComponent"
+	},
+	"devDependencies": {
+		"mocha": "^3.0.2",
+		"chai": "^3.5.0"
+	}
+}

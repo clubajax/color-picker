@@ -1,0 +1,33 @@
+{
+  "name": "color-picker",
+  "version": "0.5.0",
+  "description": "Color picker web component",
+  "main": "src/colorpicker.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "javascript",
+    "web component",
+    "custom element",
+    "ui",
+    "color",
+    "picker"
+  ],
+  "author": "anm9tr@gmail.com",
+  "license": "MIT",
+	"dependencies": {
+		"on": "clubajax/on#^1.7.8",
+		"dom": "clubajax/dom#master",
+		"BaseComponent":"clubajax/BaseComponent"
+	},
+	"devDependencies": {
+		"babel-preset-latest": "^6.16.0",
+		"babelify": "^7.3.0",
+		"grunt": "^1.0.1",
+		"grunt-browserify": "^5.0.0",
+		"grunt-concurrent": "^2.3.1",
+		"grunt-contrib-watch": "^1.0.0",
+		"grunt-http-server": "^2.0.0"
+	}
+}
