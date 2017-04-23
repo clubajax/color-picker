@@ -1,23 +1,76 @@
 color-picker {
-  display: flex;
-  width: 300px;
-  height: 300px;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  height: 200px;
   background: #ccc;
 }
-color-picker .saturation-lightness-picker {
-  flex: 1 1 auto;
-  border: 1px solid #333;
+color-picker * {
+  box-sizing: inherit;
 }
-color-picker .hue-picker {
-  flex: 0 0 30px;
-  border: 1px solid #333;
+color-picker > * {
+  vertical-align: top;
 }
-color-picker .picker-fields {
-  flex: 0 0 100px;
+color-picker .left-section {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
-color-picker .picker-fields .picker-swatch {
+color-picker .left-section .sl-picker {
+  position: absolute;
+  height: auto;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+}
+color-picker .left-section .sl-picker .sl-bw {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, white, red);
+}
+color-picker .left-section .sl-picker .sl-hue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 0%, #000000 100%);
+}
+color-picker .center-section {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 200px;
+}
+color-picker .center-section .hue-picker {
+  position: absolute;
+  height: auto;
+  top: 10px;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+  background-image: linear-gradient(to bottom, #ff0000 0%, #ff00ff 14%, #0000ff 28%, #00ffff 42%, #00ff00 56%, #ffff00 70%, #ffff00 84%, #ff0000 100%);
+}
+color-picker .right-section {
+  display: inline-block;
+  width: 100px;
+  height: 200px;
+  padding: 10px;
+}
+color-picker .right-section label {
+  display: block;
+}
+color-picker .right-section .picker-swatch {
   width: 60px;
   height: 60px;
   background-color: #333;
+}
+color-picker .right-section .rgb {
+  width: 30px;
+}
+color-picker .right-section .hex {
+  width: 45px;
 }
 /*# sourceMappingURL=localhost:8200/tests/dist/output.map */
