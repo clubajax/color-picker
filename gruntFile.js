@@ -7,10 +7,10 @@ module.exports = function (grunt) {
     
     // collect dependencies from node_modules
     let nm = path.resolve(__dirname, 'node_modules'),
-        vendorAliases = ['dom', 'keyboardevent-key-polyfill', 'on'],
-		pluginAliases = ['dom', 'keyboardevent-key-polyfill', 'on', 'BaseComponent'],
+        vendorAliases = ['dom', 'keyboardevent-key-polyfill', 'on', 'BaseComponent'],
         sourceMaps = true,
         watch = false,
+        port = '8200',
         watchPort = 35751,
         babelTransform = [["babelify", { "presets": ["latest"] }]],
         devBabel = false;
@@ -42,16 +42,14 @@ module.exports = function (grunt) {
             },
             dev: {
                 files: {
-                    'tests/dist/output.js': ['tests/src/lifecycle.js']
+                    //'tests/dist/output.js': ['tests/src/lifecycle.js']
+					'tests/dist/output.js':['src/color-picker.js']
                 },
                 options: {
                     // not using browserify-watch; it did not trigger a page reload
                     watch: false,
                     keepAlive: false,
                     external: vendorAliases,
-					alias: {
-                    	'BaseComponent': './src/BaseComponent'
-					},
                     browserifyOptions: {
                         debug: sourceMaps
                     },
@@ -65,32 +63,6 @@ module.exports = function (grunt) {
                     }
                 }
             },
-			BaseComponent:{
-            	files:{
-            		'dist/BaseComponent.js': ['src/BaseComponent.js']
-				},
-				options: {
-					external: [...vendorAliases, ...pluginAliases],
-					transform: babelTransform,
-					browserifyOptions: {
-						standalone: 'BaseComponent',
-						debug: false
-					}
-				}
-			},
-			properties:{
-				files:{
-					'dist/properties.js': ['src/properties.js']
-				},
-				options: {
-					external: pluginAliases,
-					transform: babelTransform,
-					browserifyOptions: {
-						standalone: 'properties',
-						debug: false
-					}
-				}
-			},
             deploy: {
                 files: {
                     'dist/core.js': ['src/deploy.js']
@@ -104,12 +76,42 @@ module.exports = function (grunt) {
                 }
             }
         },
+
+		less: {
+			main: {
+				options: {
+					sourceMap: true,
+					// path used to link to individual less files in the browser
+					sourceMapBasepath: '/',
+					sourceMapFilename: 'tests/dist/output.map',
+					sourceMapURL: 'localhost:' + port + '/tests/dist/output.map',
+					//livereload: false
+				},
+				files: {
+					'dist/color-picker.css': 'styles/color-picker.less'
+				}
+			}
+		},
+
+	// 	lessConfig.main.options.sourceMapFilename = mainOutput + '.map';
+	// lessConfig.main.options.sourceMapURL = host + '/' + mainOutput + '.map';
         
         watch: {
             scripts: {
                 files: ['tests/src/*.js', 'src/*.js', 'tests/*.html'],
                 tasks: ['build-dev']
             },
+			less:{
+				files: 'styles/color-picker.less',
+				tasks: ['less'],
+				options: {
+					livereload: false
+				},
+			},
+			css:{
+				files: 'dist/color-picker.css',
+				tasks: []
+			},
             options: {
                 livereload: watchPort
             }
@@ -120,7 +122,7 @@ module.exports = function (grunt) {
                 // where to serve from (root is least confusing)
                 root: '.',
                 // port (if you run several projects at once these should all be different)
-                port: '8200',
+                port: port,
                 // host (0.0.0.0 is most versatile: it gives localhost, and it works over an Intranet)
                 host: '0.0.0.0',
                 cache: -1,
@@ -146,6 +148,7 @@ module.exports = function (grunt) {
     // watch build task
     grunt.registerTask('build-dev', function (which) {
         console.time('build');
+		grunt.task.run('less:main');
         grunt.task.run('browserify:dev');
 
     });
@@ -155,15 +158,6 @@ module.exports = function (grunt) {
         grunt.task.run('browserify:vendor');
         grunt.task.run('build-dev');
     });
-
-    // task that builds files for production
-    grunt.registerTask('old-deploy', function (which) {
-        //grunt.task.run('browserify:vendor');
-        //grunt.task.run('browserify:deploy');
-		grunt.task.run('browserify:BaseComponent');
-		grunt.task.run('browserify:properties');
-    });
-
 
     // The general task: builds, serves and watches
     grunt.registerTask('dev', function (which) {
@@ -191,4 +185,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-http-server');
+	grunt.loadNpmTasks('grunt-contrib-less');
 };

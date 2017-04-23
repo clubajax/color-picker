@@ -1,0 +1,23 @@
+color-picker {
+  display: flex;
+  width: 300px;
+  height: 300px;
+  background: #ccc;
+}
+color-picker .saturation-lightness-picker {
+  flex: 1 1 auto;
+  border: 1px solid #333;
+}
+color-picker .hue-picker {
+  flex: 0 0 30px;
+  border: 1px solid #333;
+}
+color-picker .picker-fields {
+  flex: 0 0 100px;
+}
+color-picker .picker-fields .picker-swatch {
+  width: 60px;
+  height: 60px;
+  background-color: #333;
+}
+/*# sourceMappingURL=localhost:8200/tests/dist/output.map */

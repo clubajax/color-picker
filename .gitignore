@@ -3,6 +3,7 @@
 ._*
 
 /tmp
+/tests/dist
 
 /node_modules
 /bower_components

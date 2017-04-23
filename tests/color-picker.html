@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Test color-picker</title>
+    <link rel="stylesheet" href="../bower_components/mocha/mocha.css">
+	<link rel="stylesheet" href="../dist/color-picker.css" />
+    <script src="../bower_components/mocha/mocha.js"></script>
+    <script src="../bower_components/chai/chai.js"></script>
+    <script src="../bower_components/on/dist/on.js"></script>
+    <script src="../bower_components/dom/src/dom.js"></script>
+	<script src="../bower_components/BaseComponent/src/loader.js" files="./dist/vendor,./dist/output"></script>
+
+    <script src="//localhost:35751/livereload.js"></script>
+
+    <style>
+        body{
+            padding: 20px;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test color-picker</h1>
+    <div id="mocha"></div>
+
+    <script>
+        document.addEventListener('onComponentsReady', function () {
+			console.log('onComponentsReady');
+            mocha.setup('tdd');
+
+            suite('ColorPicker', function () {
+                this.timeout(3000);
+                var suite = window.suite,
+                    test = window.test,
+                    dom = window.dom,
+                    on = window.on,
+                    expect = chai.expect,
+                    body = document.body;
+				
+                suite('color-picker', function () {
+
+                    test('it should ', function () {
+						dom('color-picker', {}, body);
+                    });
+                });
+
+            });
+
+            mocha.run();
+        });
+
+    </script>
+</body>
+</html>
